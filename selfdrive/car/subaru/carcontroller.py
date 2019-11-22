@@ -68,4 +68,10 @@ class CarController():
       can_sends.append(subarucan.create_es_lkas(self.packer, CS.es_lkas_msg, visual_alert, left_line, right_line))
       self.es_lkas_cnt = CS.es_lkas_msg["Counter"]
 
+    # If the car is stopped and about to drop out of cruise, send a resume to
+    # reset the stopped timer - allows for stop-and-go
+    if CS.standstill and CS.stopped_warn and enabled:
+        can_sends.append(subarucan.create_button_resume(self.packer, CS.cruise_buttons_msg))
+
+
     return can_sends

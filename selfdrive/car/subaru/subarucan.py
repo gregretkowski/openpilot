@@ -54,3 +54,12 @@ def create_es_lkas(packer, es_lkas_msg, visual_alert, left_line, right_line):
   values["Checksum"] = subaru_checksum(packer, values, 802)
 
   return packer.make_can_msg("ES_LKAS_State", 0, values)
+
+def create_button_resume(packer, cruise_buttons_msg):
+
+  values = copy.copy(cruise_buttons_msg)
+  values["set"] = 0
+  values["Resume"] = 1
+  values["Checksum"] = subaru_checksum(packer, values, 326)
+
+  return packer.make_can_msg("Cruise_Buttons", 0, values)

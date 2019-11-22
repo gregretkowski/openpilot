@@ -46,7 +46,8 @@ def get_camera_can_parser(CP):
 
     ("Counter", "ES_Distance", 0),
     ("Signal1", "ES_Distance", 0),
-    ("Signal2", "ES_Distance", 0),
+    # ("Signal2", "ES_Distance", 0),
+    ("StoppedWarn", "ES_Distance", 0),
     ("Main", "ES_Distance", 0),
     ("Signal3", "ES_Distance", 0),
 
@@ -77,6 +78,7 @@ def get_camera_can_parser(CP):
 
   checks = [
     ("ES_DashStatus", 10),
+    ("ES_Distance", 50)
   ]
 
   return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 2)
@@ -111,6 +113,7 @@ class CarState():
     self.user_gas_pressed = self.pedal_gas > 0
     self.brake_pressed = self.brake_pressure > 0
     self.brake_lights = bool(self.brake_pressed)
+    self.stopped_warn = cp_cam.vl["ES_Distance"]["StoppedWarn"]
 
     self.v_wheel_fl = cp.vl["Wheel_Speeds"]['FL'] * CV.KPH_TO_MS
     self.v_wheel_fr = cp.vl["Wheel_Speeds"]['FR'] * CV.KPH_TO_MS
@@ -151,3 +154,4 @@ class CarState():
 
     self.es_distance_msg = copy.copy(cp_cam.vl["ES_Distance"])
     self.es_lkas_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
+    self.es_cruse_buttons_msg = copy.copy(cp.vl["Cruise_Buttons"])
