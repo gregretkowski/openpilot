@@ -97,6 +97,8 @@ class CarState():
     self.steer_torque_driver = 0
     self.steer_not_allowed = False
     self.main_on = False
+    self.stopped_warn = False
+    self.standstill = False
 
     # vEgo kalman filter
     dt = 0.01

@@ -70,7 +70,7 @@ class CarController():
 
     # If the car is stopped and about to drop out of cruise, send a resume to
     # reset the stopped timer - allows for stop-and-go
-    if CS.standstill and CS.stopped_warn and enabled:
+    if enabled and CS.standstill and CS.stopped_warn:
         can_sends.append(subarucan.create_button_resume(self.packer, CS.cruise_buttons_msg))
 
 
